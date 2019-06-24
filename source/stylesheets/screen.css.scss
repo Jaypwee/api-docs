@@ -63,6 +63,23 @@ html, body {
   font-weight: bold;
 
   // language selector for mobile devices
+
+  code {
+    background-color: rgba(0,0,0,0.05);
+    padding: 3px;
+    border-radius: 3px;
+    @extend %break-words;
+    @extend %code-font;
+    font-size: 10px;
+
+    &.prefix {
+      background-color: #FF79C6;
+      opacity: 0.7;
+      color: #fff;
+    
+     }
+  }
+
   .lang-selector {
     display: none;
     a {
@@ -454,8 +471,16 @@ html, body {
     border-radius: 3px;
     @extend %break-words;
     @extend %code-font;
-  }
 
+    &.prefix {
+      // text-align: center;
+      background-color: #FF79C6;
+      opacity: 0.7;
+      color: #fff;
+
+    }
+
+  }
   pre>code {
     background-color: transparent;
     padding: 0;
@@ -502,6 +527,13 @@ html, body {
     border-radius: 4px;
     border: 1px solid #F7E633;
     background: linear-gradient(to top left, #F7E633 0%, #F1D32F 100%);
+  }
+
+  .center-column + pre {    
+    position: static;
+    float: none;
+    clear: none;
+    margin-bottom: 18px;
   }
 }
 
@@ -612,4 +644,34 @@ html, body {
 
 .highlight, .highlight .w {
   background-color: $code-bg;
+}
+
+// syntax highlighting tweaks
+
+.highlight .err {
+    // color: #FFCC00;
+    // color: #a0fbaa;
+    color: #8BE9FD;
+}
+
+.highlight .k {
+    color: #57f926;
+}
+
+.highlight .o {
+    color: #EEEEEE;
+}
+
+.highlight .s2 {
+  color: #50FA7B;
+}
+
+.highlight .mi, .highlight .mf {
+  color: #BD93F9
+}
+
+code .prefix { //Used for h2 header prefixes (GET, POST, DELETE)
+  background-color: #FF79C6;
+  opacity: 0.7;
+  color: #fff;
 }

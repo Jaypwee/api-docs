@@ -1,10 +1,7 @@
 ---
-title: API Reference
+title: Hanbitco API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
   - javascript
 
 toc_footers:
@@ -19,75 +16,140 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+## Authentication request
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+> Payload consists of the following:
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```json
+  {
+    "access_key": "Issued access key (required)",
+    "nonce": "Current time, epoch milliseconds (required)",
+    "query": "Parameter's querystring (required if parameters are available)"
+  }
 ```
 
-```python
-import kittn
 
-api = kittn.authorize('meowmeowmeow')
-```
+When requesting a Private API, generate a token with the issued Client Id and Client Secret and send it through the Authorization header. The token to register in the Authorization header follows the [JWT](https://jwt.io)
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+HS256 is recommended for signing, and the secret key issued as a secret is used.
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+<aside class="warning">
+The query value of the payload must be a Query String. JSON and other formats are not allowed.
 </aside>
 
-# Kittens
+<aside class="notice">
+Check the secret encoding option when creating the signature. The issued secret key is not encoded in base64. If you are using a JWT related libary, please check the options.
+</aside>
 
-## Get All Kittens
+>If the parameters are not available
 
-```ruby
-require 'kittn'
+```javascript
+const jwt = require("jsonwebtoken");
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+const payload = {
+  clientId: "Issued Client Id",
+  nonce: (new Date).getTime()
+};
+
+const jwtToken = jwt.sign(payload, "Issued Client Secret");
+const authorizationToken = `Bearer ${jwtToken}`;
 ```
 
-```python
-import kittn
+<br/>
+<br/>
+<br/>
+<br/>
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+>If the parameters are available
+
+```javascript 
+const jwt = require("jsonwebtoken");
+const querystring = require("query-string");
+
+const query = queryString.stringify(
+  {/* requested parameters */}, 
+  { sort: (a, b) => a > b ? 1 : -1 } //QueryString must be alphabetically ordered.
+);
+
+const payload = {
+  clientId: "Issued Client Id",
+  nonce: (new Date).getTime(),
+  query: query
+};
+
+const jwtToken = jwt.sign(payload, "Issued Secret key");
+const authorizationToken = `Bearer ${jwtToken}`;
+
 ```
+
+# Public API
+
+## `GET`   Retrieve Orderbook
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl --request GET \
+  --url 'https://user-api.hanbitco.com/v1/markets/{currency_pair}/orderbook'
 ```
 
+> Example Output:
+
+```json-doc
+  {
+    status: "success",
+    data:
+    { 
+      asks:
+        [ 
+          [ 
+            '0.002776', // PRICE
+            '2.5937'    // QTY
+          ],
+          [ 
+            '0.003936',
+            '2.3505' 
+          ],
+        ],
+      bids:
+        [ 
+          [ 
+            '0.000041', // PRICE
+            '0.6829'    // QTY
+          ],
+          [ 
+            '0.001773', 
+            '0.4438' 
+          ],
+        ] 
+    } 
+  }
+```
+ 
+Retrieves the orderbook for a market with a requested currency_pair. The list of currency pairs can be found on the [currencyPair] section.
+
+###Path Parameters 
+
+Parameter | Type | Description
+--------- | ------- | -----------
+currency_pair | `string` | Used to retrieve the orderbook with the respective currency pair.
+
+## <code class='prefix'>GET</code> Get Trades History
+
+```shell
+curl --request GET \
+  --url 'https://user-api.hanbitco.com/v1/markets/{currency_pair}/trades'
+```
 ```javascript
 const kittn = require('kittn');
 
@@ -100,9 +162,9 @@ let kittens = api.kittens.get();
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
+    id: 1,
+    name: "Fluffums",
+    "breed: "calico",
     "fluffiness": 6,
     "cuteness": 7
   },
@@ -124,7 +186,7 @@ This endpoint retrieves all kittens.
 
 ### Query Parameters
 
-Parameter | Default | Description
+Parameter | Type | Description
 --------- | ------- | -----------
 include_cats | false | If set to true, the result will also include cats.
 available | true | If set to false, the result will include kittens that have already been adopted.
