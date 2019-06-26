@@ -19,10 +19,14 @@ under the License.
   'use strict';
 
   var languages = [];
+  var locales = [];
 
-  window.setupLanguages = setupLanguages;
+  // window.setupLanguages = setupLanguages; 
+  window.parseURL = parseURL;
+  window.setupLocales = setupLocales;
   window.activateLanguage = activateLanguage;
   window.getLanguageFromQueryString = getLanguageFromQueryString;
+  window.getLocaleFromQueryString = getLocaleFromQueryString;
 
   function activateLanguage(language) {
     if (!language) return;
@@ -44,6 +48,24 @@ under the License.
       $(window.location.hash).get(0).scrollIntoView(true);
     }
   }
+  
+  // calls when locales is changedd
+  function changeLocale(locale) {
+    if (!locale) return;
+    if (locale === '') return;
+
+    //jquery class changing 
+    for (var i=0; i < locales.length; i++) {
+      $(".locale_" + locales[i]).hide()
+    }
+    $(".locale_" + locale).show()
+
+    pushURL(locale)
+
+    if ($(window.location.hash).get(0)) {
+      $(window.location.hash).get(0).scrollIntoView(true);
+    }
+  }
 
   // parseURL and stringifyURL are from https://github.com/sindresorhus/query-string
   // MIT licensed
@@ -59,8 +81,11 @@ under the License.
       return {};
     }
 
-    return str.split('&').reduce(function (ret, param) {
+    return str.split('&').filter(function (elem) {
+      return elem !== "";
+    }).reduce(function (ret, param) {
       var parts = param.replace(/\+/g, ' ').split('=');
+      console.log('parts', parts)
       var key = parts[0];
       var val = parts[1];
 
@@ -80,29 +105,52 @@ under the License.
       return ret;
     }, {});
   };
-
+  
   function stringifyURL(obj) {
-    return obj ? Object.keys(obj).sort().map(function (key) {
-      var val = obj[key];
-
-      if (Array.isArray(val)) {
-        return val.sort().map(function (val2) {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
-        }).join('&');
+    const test = Object.keys(obj).sort().map(function (key) {
+      if ( obj[key] ) {
+        return 'hola'
       }
-
-      return encodeURIComponent(key) + '=' + encodeURIComponent(val);
+    })
+    console.log(' ugh', test)
+    return obj ? Object.keys(obj).sort().filter(function (key) { return obj[key] != undefined }).map(function (key) {
+      if ( obj[key] ) {
+        var val = obj[key];
+  
+        if (Array.isArray(val)) {
+          return val.sort().map(function (val2) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
+          }).join('&');
+        }
+        return encodeURIComponent(key) + '=' + encodeURIComponent(val);
+      }
     }).join('&') : '';
   };
 
   // gets the language set in the query string
   function getLanguageFromQueryString() {
+    console.log('location.search', location.search)
     if (location.search.length >= 1) {
+      console.log('parseurl', parseURL(location.search))
       var language = parseURL(location.search).language;
       if (language) {
         return language;
-      } else if (jQuery.inArray(location.search.substr(1), languages) != -1) {
-        return location.search.substr(1);
+      } else {
+        return 'en';
+      }
+    }
+
+    return false;
+  }
+
+  // returns current locale from query string
+  function getLocaleFromQueryString(){
+    if (location.search.length >= 1) {
+      var locale = parseURL(location.search).locale;
+      if (locale) {
+        return locale;
+      } else {
+        return languages[0];
       }
     }
 
@@ -110,55 +158,84 @@ under the License.
   }
 
   // returns a new query string with the new language in it
-  function generateNewQueryString(language) {
+  function generateNewQueryString(obj) {
     var url = parseURL(location.search);
-    if (url.language) {
-      url.language = language;
+    if (url.locale || url.language) {
       return stringifyURL(url);
+    } else {
+      return stringifyURL(obj)
     }
-    return language;
   }
 
+
+
   // if a button is clicked, add the state to the history
-  function pushURL(language) {
+  function pushURL(locale, language = undefined) {
     if (!history) { return; }
+    if (!locale) {
+      locale = getLocaleFromQueryString()
+    }
     var hash = window.location.hash;
     if (hash) {
       hash = hash.replace(/^#+/, '');
     }
-    history.pushState({}, '', '?' + generateNewQueryString(language) + '#' + hash);
+    const str_map = {
+      locale: locale,
+      language: language
+    }
+    history.pushState({}, '', '?' + generateNewQueryString(str_map) + '#' + hash);
 
     // save language as next default
+    localStorage.setItem("locale", locale);
     localStorage.setItem("language", language);
   }
 
-  function setupLanguages(l) {
-    var defaultLanguage = localStorage.getItem("language");
+  // function setupLanguages(l) {
+  //   var defaultLanguage = localStorage.getItem("language");
 
-    languages = l;
+  //   languages = l;
 
-    var presetLanguage = getLanguageFromQueryString();
-    if (presetLanguage) {
-      // the language is in the URL, so use that language!
-      activateLanguage(presetLanguage);
+  //   var presetLanguage = getLanguageFromQueryString();
+  //   if (presetLanguage) {
+  //     // the language is in the URL, so use that language!
+  //     activateLanguage(presetLanguage);
 
-      localStorage.setItem("language", presetLanguage);
-    } else if ((defaultLanguage !== null) && (jQuery.inArray(defaultLanguage, languages) != -1)) {
-      // the language was the last selected one saved in localstorage, so use that language!
-      activateLanguage(defaultLanguage);
+  //     localStorage.setItem("language", presetLanguage);
+  //   } else if ((defaultLanguage !== null) && (jQuery.inArray(defaultLanguage, languages) != -1)) {
+  //     // the language was the last selected one saved in localstorage, so use that language!
+  //     activateLanguage(defaultLanguage);
+  //   } else {
+  //     // no language selected, so use the default
+  //     activateLanguage(languages[0]);
+  //   }
+  // }
+
+  function setupLocales(l) {
+    var defaultLocale = localStorage.getItem("locale");
+
+    locales = l
+
+    var presetLocale = getLocaleFromQueryString();
+    if (presetLocale) {
+      //tuse the locale in the url
+      changeLocale(presetLocale)
+      localStorage.setItem("locale", presetLocale)
+    } else if ((defaultLocale !== null) && (jQuery.inArray(defaultLocale, locales) != -1)){
+      console.log('default')
+      changeLocale(defaultLocale)
     } else {
-      // no language selected, so use the default
-      activateLanguage(languages[0]);
+      console.log('en')
+      changeLocale('en')
     }
   }
 
   // if we click on a language tab, activate that language
-  $(function() {
-    $(".lang-selector a").on("click", function() {
-      var language = $(this).data("language-name");
-      pushURL(language);
-      activateLanguage(language);
-      return false;
-    });
-  });
+  // $(function() { Activate this for Multiple programming language support
+  //   $(".lang-selector a").on("click", function() {
+  //     var language = $(this).data("language-name");
+  //     pushURL(language);
+  //     activateLanguage(language);
+  //     return false;
+  //   });
+  // });
 })();

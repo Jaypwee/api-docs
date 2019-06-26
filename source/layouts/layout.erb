@@ -14,11 +14,20 @@ License for the specific language governing permissions and limitations
 under the License.
 %>
 <% language_tabs = current_page.data.language_tabs || [] %>
-<% page_content = yield %>
+<% locales = current_page.data.locales || [] %>
+<% page_content_en = yield %>
+<% page_content_ko = yield %>
+
 <%
-  if current_page.data.includes
-    current_page.data.includes.each do |include|
-      page_content += partial("includes/#{include}")
+  if current_page.data.includes_en
+    current_page.data.includes_en.each do |include_en|
+      page_content_en += partial("includes/#{include_en}")
+    end
+  end
+
+  if current_page.data.includes_ko
+    current_page.data.includes_ko.each do |include_ko|
+      page_content_ko += partial("includes/#{include_ko}")
     end
   end
 %>
@@ -43,7 +52,7 @@ under the License.
     <% end %>
   </head>
 
-  <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
+  <body class="<%= page_classes %>" data-locales="<%=h locales.map{ |loc| loc.is_a?(Hash) ? loc.keys.first : loc }.to_json %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -70,8 +79,22 @@ under the License.
         <ul class="search-results"></ul>
       <% end %>
       <ul id="toc" class="toc-list-h1">
-        <% toc_data(page_content).each do |h1| %>
-          <li>
+        <% toc_data(page_content_en).each do |h1| %>
+          <li class="locale_en">
+            <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
+            <% if h1[:children].length > 0 %>
+              <ul class="toc-list-h2">
+                <% h1[:children].each do |h2| %>
+                  <li>
+                    <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </li>
+        <% end %>
+        <% toc_data(page_content_ko).each do |h1| %>
+          <li class="locale_ko">
             <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
             <% if h1[:children].length > 0 %>
               <ul class="toc-list-h2">
@@ -95,8 +118,11 @@ under the License.
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
-      <div class="content">
-        <%= page_content %>
+      <div class="content locale_en">
+        <%= page_content_en %>
+      </div>
+      <div class="content locale_ko">
+        <%= page_content_ko %>
       </div>
       <div class="dark-box">
         <% if language_tabs.any? %>
