@@ -61,7 +61,6 @@ const authorizationToken = `Bearer ${jwtToken}`;
 ```javascript 
 const jwt = require("jsonwebtoken");
 const querystring = require("query-string");
-
 const query = queryString.stringify(
   {/* requested parameters */}, 
   { sort: (a, b) => a > b ? 1 : -1 } //QueryString must be alphabetically ordered.
