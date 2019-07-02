@@ -4,7 +4,6 @@
 
 $(function() {
   loadToc($('#toc'), '.toc-link', '.toc-list-h2', 10);
-  console.log('in nosearch');
   // setupLanguages($('body').data('languages')); //Activate in case of multiple language support
   setupLocales($('body').data('locales'));
   $('.content').imagesLoaded( function() {

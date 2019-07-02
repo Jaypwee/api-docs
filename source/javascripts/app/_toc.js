@@ -5,9 +5,10 @@
 
   var htmlPattern = /<[^>]*>/g;
   var loaded = false;
+  var locale;
 
   var debounce = function(func, waitTime) {
-    var timeout = false;
+    var timeout = false
     return function() {
       if (timeout === false) {
         setTimeout(function() {
@@ -25,27 +26,46 @@
   };
 
   function loadToc($toc, tocLinkSelector, tocListSelector, scrollOffset) {
-    var headerHeights = {};
+    var headerHeights_en = {};
+    var headerHeights_ko = {};
     var pageHeight = 0;
     var windowHeight = 0;
     var originalTitle = document.title;
 
     var recacheHeights = function() {
-      headerHeights = {};
+      headerHeights_en = {};
+      headerHeights_ko = {};
       pageHeight = $(document).height();
       windowHeight = $(window).height();
 
+      var diff;
       $toc.find(tocLinkSelector).each(function() {
         var targetId = $(this).attr('href');
+        targetId = decodeURI(targetId);
         if (targetId[0] === "#") {
-          headerHeights[targetId] = $(targetId).offset().top;
+          if ($(targetId).offset() !== undefined){
+            headerHeights_en[targetId] = $(targetId).offset().top;//All EN locale headers will go in here. All the other korean locales will go into the other else statements.
+          } else if ($("h1:contains('" + targetId.slice(1) + "')").offset()){
+            // if (!diff){
+            //   diff = $("h1:contains('" + targetId.slice(1) + "')").offset().top - 50;
+            // }
+            headerHeights_ko[targetId] = $("h1:contains('" + targetId.slice(1) + "')").offset().top;
+          } else {
+            headerHeights_ko[targetId] = $("h2:contains('" + targetId.slice(1) + "')").offset().top;
+          }
+          
         }
       });
     };
 
     var refreshToc = function() {
-      var currentTop = $(document).scrollTop() + scrollOffset;
+      var currentTop = $(document).scrollTop() + scrollOffset + 50;
 
+      locale = getLocaleFromQueryString();
+      
+      
+      var headerHeights = locale === 'en' ? headerHeights_en : headerHeights_ko
+      
       if (currentTop + windowHeight >= pageHeight) {
         // at bottom of page, so just select last header by making currentTop very large
         // this fixes the problem where the last header won't ever show as active if its content
@@ -62,10 +82,9 @@
 
       // Catch the initial load case
       if (currentTop == scrollOffset && !loaded) {
-        best = window.location.hash;
+        best = decodeURI(window.location.hash);
         loaded = true;
       }
-
       var $best = $toc.find("[href='" + best + "']").first();
       if (!$best.hasClass("active")) {
         // .active is applied to the ToC link we're currently on, and its parent <ul>s selected by tocListSelector
@@ -103,10 +122,15 @@
 
       // reload immediately after scrolling on toc click
       $toc.find(tocLinkSelector).click(function() {
+        if (locale === 'ko'){
+          $(window).scrollTop(headerHeights_ko[`#${$(this)[0].dataset.title}`] - 50)
+        }
         setTimeout(function() {
           refreshToc();
         }, 0);
       });
+
+      
 
       $(window).scroll(debounce(refreshToc, 200));
       $(window).resize(debounce(recacheHeights, 200));

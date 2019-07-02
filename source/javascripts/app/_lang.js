@@ -15,7 +15,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 */
-;(function () {
+;$(function () {
   'use strict';
 
   var languages = [];
@@ -62,8 +62,14 @@ under the License.
 
     pushURL(locale)
 
-    if ($(window.location.hash).get(0)) {
-      $(window.location.hash).get(0).scrollIntoView(true);
+    // if ($(window.location.hash).get(0)) {
+    //   $(window.location.hash).get(0).scrollIntoView(true);
+    // }
+
+    window.recacheHeights();
+
+    if (window.visualViewport){
+      $(window).scrollTop(window.visualViewport.pageTop);
     }
   }
 
@@ -85,7 +91,6 @@ under the License.
       return elem !== "";
     }).reduce(function (ret, param) {
       var parts = param.replace(/\+/g, ' ').split('=');
-      console.log('parts', parts)
       var key = parts[0];
       var val = parts[1];
 
@@ -112,7 +117,6 @@ under the License.
         return 'hola'
       }
     })
-    console.log(' ugh', test)
     return obj ? Object.keys(obj).sort().filter(function (key) { return obj[key] != undefined }).map(function (key) {
       if ( obj[key] ) {
         var val = obj[key];
@@ -129,9 +133,7 @@ under the License.
 
   // gets the language set in the query string
   function getLanguageFromQueryString() {
-    console.log('location.search', location.search)
     if (location.search.length >= 1) {
-      console.log('parseurl', parseURL(location.search))
       var language = parseURL(location.search).language;
       if (language) {
         return language;
@@ -160,17 +162,13 @@ under the License.
   // returns a new query string with the new language in it
   function generateNewQueryString(obj) {
     var url = parseURL(location.search);
-    if (url.locale || url.language) {
-      return stringifyURL(url);
-    } else {
-      return stringifyURL(obj)
-    }
+    return stringifyURL(obj)
   }
 
 
 
   // if a button is clicked, add the state to the history
-  function pushURL(locale, language = undefined) {
+  function pushURL(locale, language = undefined, ) {
     if (!history) { return; }
     if (!locale) {
       locale = getLocaleFromQueryString()
@@ -218,19 +216,36 @@ under the License.
     var presetLocale = getLocaleFromQueryString();
     if (presetLocale) {
       //tuse the locale in the url
-      changeLocale(presetLocale)
+      // changeLocale(presetLocale)
+      if (presetLocale === $('.locale_button').find('.right').text()){
+        $('.locale_button').find('.right').click();
+        changeLocale($('.locale_button').find('.right').text())
+      } else {
+        $('.locale_button').find('.left').click();
+        changeLocale($('.locale_button').find('.left').text())
+
+      }
       localStorage.setItem("locale", presetLocale)
     } else if ((defaultLocale !== null) && (jQuery.inArray(defaultLocale, locales) != -1)){
-      console.log('default')
+      if (defaultLocale === $('.locale_button').find('.right').text()){
+        $('.locale_button').find('.right').click();
+        changeLocale($('.locale_button').find('.right').text())
+      } else {
+        $('.locale_button').find('.left').click();
+        changeLocale($('.locale_button').find('.left').text())
+
+      }
       changeLocale(defaultLocale)
     } else {
-      console.log('en')
-      changeLocale('en')
+      $('.locale_button').find('.right').click(); //Default is englihsh
+      changeLocale($('.locale_button').find('.right').text())
+
+      // changeLocale('en')
     }
   }
 
   // if we click on a language tab, activate that language
-  // $(function() { Activate this for Multiple programming language support
+  // $(function() { //Activate this for Multiple programming language support
   //   $(".lang-selector a").on("click", function() {
   //     var language = $(this).data("language-name");
   //     pushURL(language);
@@ -238,4 +253,14 @@ under the License.
   //     return false;
   //   });
   // });
-})();
+
+  $(function(){
+    $('.locale_button').find('#q1').on("click", function(){
+      changeLocale($('.locale_button').find('.left').text());
+    })
+    $('.locale_button').find('#q2').on("click", function(){
+      changeLocale($('.locale_button').find('.right').text());
+    })
+  })
+
+});

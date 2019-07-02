@@ -40,6 +40,111 @@ html, body {
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
 
+.header {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  background-color: #F3F7F9;
+  z-index: 50;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+
+  .header_img {
+    width: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .logo {
+      display: block;
+      width: 130px;
+      margin-bottom: $logo-margin;
+    }
+  }
+
+  .header_links {
+    width: 78%;
+  }
+
+  .header_locale {
+    width: 150px;
+
+    .switch {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 100px auto;
+      width: 80px;
+      height: 25px;
+      border: 2px solid $header-button-border;
+      color: $header-button-text;
+      font-size: 17px;
+      border-radius: 10px;
+    }
+    .locale_button {
+      position: relative;
+      display: inline-block;
+      width: 50%;
+      height: 100%;
+      line-height: 20px;
+      &:first-child {
+        label{
+          border-radius: 5px 0 0 5px;
+        }
+      }
+      &:last-child{
+        label{
+          border-radius: 0 5px 5px 0;
+        }
+      }
+      label{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        text-align: center;
+        transition: transform 0.4s, color 0.4s, background-color 0.4s;
+      }
+      input[type="radio"]{
+        appearance: none;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        user-select: none;
+        &:focus {
+          outline: 0;
+          outline-offset: 0;
+        }
+        &:checked ~ label.left{
+          background-color: $header-button-active;
+          color: #fff;
+          border-top-left-radius: 7px;
+          border-bottom-left-radius: 7px;
+        }
+        &:checked ~ label.right{
+          background-color: $header-button-active;
+          color: #fff;
+          border-top-right-radius: 7px;
+          border-bottom-right-radius: 7px;
+        }
+        &:active ~ label{
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+.main_body{
+  padding-top: 50px;
+}
+
+// .locale_ko, .locale_en{
+//   display: none;
+// }
+
 #toc > ul > li > a > span {
   float: right;
   background-color: #2484FF;
@@ -54,7 +159,7 @@ html, body {
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
-  top: 0;
+  top: 50px;
   left: 0;
   bottom: 0;
   width: $nav-width;
@@ -73,16 +178,21 @@ html, body {
     font-size: 10px;
 
     &.get {
-      background-color: #FF79C6;
-      opacity: 0.7;
+      background-color: #6bbd5b;
+      // opacity: 0.7;
       color: #fff;
-    
+      
      }
 
      &.post {
-      background-color: #50FA7B;
+      background-color: #248fb2;
       // opacity: 0.7;
       color: #fff;
+     }
+
+     &.delete {
+       background-color: #e27a7a;
+       color: #fff;
      }
   }
 
@@ -92,13 +202,6 @@ html, body {
       padding-top: 0.5em;
       padding-bottom: 0.5em;
     }
-  }
-
-  // This is the logo at the top of the ToC
-  .logo {
-    display: block;
-    max-width: 100%;
-    margin-bottom: $logo-margin;
   }
 
   &>.search {
@@ -377,6 +480,7 @@ html, body {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     background-color: #fdfdfd;
+  
   }
 
   h1:first-child, div:first-child + h1 {
@@ -484,15 +588,20 @@ html, body {
 
     &.get {
       // text-align: center;
-      background-color: #FF79C6;
-      opacity: 0.7;
+      background-color: #6bbd5b;
+      // opacity: 0.7;
       color: #fff;
 
     }
 
     &.post {
-      background-color: #50FA7B;;
+      background-color: #248fb2;;
       // opacity: 0.7;
+      color: #fff;
+    }
+
+    &.delete {
+      background-color: #e27a7a;
       color: #fff;
     }
 

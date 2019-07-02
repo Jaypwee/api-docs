@@ -53,78 +53,34 @@ under the License.
   </head>
 
   <body class="<%= page_classes %>" data-locales="<%=h locales.map{ |loc| loc.is_a?(Hash) ? loc.keys.first : loc }.to_json %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
-    <a href="#" id="nav-button">
-      <span>
-        NAV
-        <%= image_tag('navbar.png') %>
-      </span>
-    </a>
-    <div class="toc-wrapper">
-      <%= image_tag "logo.png", class: 'logo' %>
-      <% if language_tabs.any? %>
-        <div class="lang-selector">
-          <% language_tabs.each do |lang| %>
-            <% if lang.is_a? Hash %>
-              <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-            <% else %>
-              <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-      <% if current_page.data.search %>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
-      <% end %>
-      <ul id="toc" class="toc-list-h1">
-        <% toc_data(page_content_en).each do |h1| %>
-          <li class="locale_en">
-            <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
-            <% if h1[:children].length > 0 %>
-              <ul class="toc-list-h2">
-                <% h1[:children].each do |h2| %>
-                  <li>
-                    <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
-                  </li>
-                <% end %>
-              </ul>
-            <% end %>
-          </li>
-        <% end %>
-        <% toc_data(page_content_ko).each do |h1| %>
-          <li class="locale_ko">
-            <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
-            <% if h1[:children].length > 0 %>
-              <ul class="toc-list-h2">
-                <% h1[:children].each do |h2| %>
-                  <li>
-                    <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
-                  </li>
-                <% end %>
-              </ul>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-      <% if current_page.data.toc_footers %>
-        <ul class="toc-footer">
-          <% current_page.data.toc_footers.each do |footer| %>
-            <li><%= footer %></li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-    <div class="page-wrapper">
-      <div class="dark-box"></div>
-      <div class="content locale_en">
-        <%= page_content_en %>
+    <header class="header">
+      <div class="header_img">
+        <%= image_tag "logo.png", class: 'logo' %>
       </div>
-      <div class="content locale_ko">
-        <%= page_content_ko %>
+      <div class="header_links">
+
       </div>
-      <div class="dark-box">
+      <div class="header_locale">
+        <div class="switch">
+          <div class="locale_button">
+            <input id="q1" name="q" type="radio" value="q1" />
+            <label class="left" for="q1">ko</label>
+          </div>
+          <div class="locale_button">
+            <input id="q2" name="q" type="radio" value="q2" />
+            <label class="right" for="q2">en</label>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="main_body">
+      <a href="#" id="nav-button">
+        <span>
+          NAV
+          <%= image_tag('navbar.png') %>
+        </span>
+      </a>
+      <div class="toc-wrapper">
         <% if language_tabs.any? %>
           <div class="lang-selector">
             <% language_tabs.each do |lang| %>
@@ -136,6 +92,71 @@ under the License.
             <% end %>
           </div>
         <% end %>
+        <% if current_page.data.search %>
+          <div class="search">
+            <input type="text" class="search" id="input-search" placeholder="Search">
+          </div>
+          <ul class="search-results"></ul>
+        <% end %>
+        <ul id="toc" class="toc-list-h1">
+          <% toc_data(page_content_en).each do |h1| %>
+            <li class="locale_en">
+              <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
+              <% if h1[:children].length > 0 %>
+                <ul class="toc-list-h2">
+                  <% h1[:children].each do |h2| %>
+                    <li>
+                      <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </li>
+          <% end %>
+          <% toc_data(page_content_ko).each do |h1| %>
+            <li class="locale_ko">
+              <a href="#<%= h1[:content] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
+              <% if h1[:children].length > 0 %>
+                <ul class="toc-list-h2">
+                  <% h1[:children].each do |h2| %>
+                    <li>
+                      <a href="#<%= h2[:title] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <% if current_page.data.toc_footers %>
+          <ul class="toc-footer">
+            <% current_page.data.toc_footers.each do |footer| %>
+              <li><%= footer %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+      <div class="page-wrapper">
+        <div class="dark-box"></div>
+        <div class="content locale_en">
+          <%= page_content_en %>
+        </div>
+        <div class="content locale_ko">
+          <%= page_content_ko %>
+        </div>
+        <div class="dark-box">
+          <% if language_tabs.any? %>
+            <div class="lang-selector">
+              <% language_tabs.each do |lang| %>
+                <% if lang.is_a? Hash %>
+                  <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
+                <% else %>
+                  <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </body>
