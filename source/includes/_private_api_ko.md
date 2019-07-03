@@ -1,4 +1,4 @@
-# 개인-API
+# 개인 API
 
 ## <code class="get">GET</code> 전체 잔고 조회
 
@@ -63,19 +63,19 @@ request(options, function (error, response, body) {
 
 <code class='get'>GET</code> `https://user-api.hanbitco.com/v1/balances`
 
-### Headers
+### 헤더
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | 인증 토큰 `JWT`
+Authorization | `string` | 인증 토큰 `JWT`
 
-### Response
+### 응답
 
 Key | Type | Description
 --------- | ------- | -----------
-currency | string | 암호화폐 값
-balance | string | 해당 암호화폐의 전체 잔고
-tradable | string | 해당 암호화폐의 거래 가능 잔고
+currency | `string` | 암호화폐 값
+balance | `string` | 해당 암호화폐의 전체 잔고
+tradable | `string` | 해당 암호화폐의 거래 가능 잔고
 
 ## <code class="get">GET</code> 특정 암호화폐 잔고 조회
 
@@ -131,25 +131,25 @@ request(options, function (error, response, body) {
 
 <code class="get">GET</code>`https://user-api.hanbitco.com/v1/balances?currency=currency`
 
-### Path Parameters
+### Path 파라미터
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency | string | 암호화폐 값 (e.g BTC) 
+currency | `string` | 암호화폐 값 (e.g BTC) 
 
-### Headers
+### 헤더
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | 인증 토큰 `JWT`  
+Authorization | `string` | 인증 토큰 `JWT`  
 
-### Response
+### 응답
 
 Key | Type | Description
 --------- | ------- | -----------
-currency | string | 암호화폐 값
-balance | string | 해당 암호화폐의 전체 잔고
-tradable | string | 해당 암호화폐의 거래 가능한 잔고
+currency | `string` | 암호화폐 값
+balance | `string` | 해당 암호화폐의 전체 잔고
+tradable | `string` | 해당 암호화폐의 거래 가능한 잔고
 
 ## <code class="post">POST</code> 주문 생성
 
@@ -221,37 +221,37 @@ request(options, function (error, response, body) {
 
 <code class="post">POST</code>`https://user-api.hanbitco.com/v1/orders`
 
-### Body Parameters
+### Body 파라미터
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | 주문의 고유 ID `UUID`
-currencyPair | string | 주문을 생성할 마켓 `예) ETH_BTC`
-side | string | 주문 종류 `'buy' or 'sell'`
-price | string | Price of currency per amount
-amount | string | Amount of currency to buy or sell
+orderId | `string` | 주문의 고유 ID `UUID`
+currencyPair | `string` | 주문을 생성할 마켓 `예) ETH_BTC`
+side | `string` | 주문 종류 `'buy' or 'sell'`
+price | `string` | Price of currency per amount
+amount | `string` | Amount of currency to buy or sell
 
-### Headers
+### 헤더
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | 인증 토큰 `JWT`  
+Authorization | `string` | 인증 토큰 `JWT`  
 
-### Response
+### 응답
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | 주문의 고유 ID `UUID`
-currencyPair | string | 마켓 종류 `예) ETH_BTC`
-side | string | 주문 종류 `"BUY" or "SELL"`
-type | string | 주문 형태 `"LIMIT"`
-amount | string | 총 주문 수량
-price | string | 주문 가격
-remains | string | 주문 잔량
-fee | string | 총 주문 수수료
-feeRate | string | 적용 수수료율
-status | string | 주문 상태 `예) CREATED`
-timestamp | string | 주문 생성 시각
+orderId | `string` | 주문의 고유 ID `UUID`
+currencyPair | `string` | 마켓 종류 `예) ETH_BTC`
+side | `string` | 주문 종류 `"BUY" or "SELL"`
+type | `string` | 주문 형태 `"LIMIT"`
+amount | `string` | 총 주문 수량
+price | `string` | 주문 가격
+remains | `string` | 주문 잔량
+fee | `string` | 총 주문 수수료
+feeRate | `string` | 적용 수수료율
+status | `string` | 주문 상태 `예) CREATED`
+timestamp | `string` | 주문 생성 시각
 
 ## <code class="delete">DELETE</code> 주문 취소
 
@@ -319,33 +319,33 @@ request(options, function (error, response, body) {
 
 <code class="delete">DELETE</code>`https://user-api.hanbitco.com/v1/orders`
 
-### Body Parameters
+### Body 파라미터
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | 주문의 고유 ID `UUID`
+orderId | `string` | 주문의 고유 ID `UUID`
 
-### Headers
+### 헤더
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | 인증 토큰 `JWT`  
+Authorization | `string` | 인증 토큰 `JWT`  
 
-### Response
+### 응답
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | 주문의 고유 ID `UUID`
-currencyPair | string | 마켓 종류 예) ETH_BTC
-side | string | 주문 종류 ("BUY" or "SELL")
-type | string | 주문 형태 `"LIMIT"`
-amount | string | 총 주문 수량
-price | string | 주문 가격
-remains | string | 주문 잔량
-fee | string | 총 주문 수수료
-feeRate | string | 주문 적용 수수료율
-status | string | 주문 상태 `CREATED`
-timestamp | string | 주문 생성 시각
+orderId | `string` | 주문의 고유 ID `UUID`
+currencyPair | `string` | 마켓 종류 예) ETH_BTC
+side | `string` | 주문 종류 `"BUY" or "SELL"`
+type | `string` | 주문 형태 `"LIMIT"`
+amount | `string` | 총 주문 수량
+price | `string` | 주문 가격
+remains | `string` | 주문 잔량
+fee | `string` | 총 주문 수수료
+feeRate | `string` | 주문 적용 수수료율
+status | `string` | 주문 상태 `CREATED`
+timestamp | `string` | 주문 생성 시각
 
 ## <code class='get'>GET</code> 주문 조회
 
@@ -431,46 +431,46 @@ request(options, function (error, response, body) {
 
 <code class="get">GET</code>`https://user-api.hanbitco.com/v1/orders`
 
-### Query Parameters
+### Query 파라미터
 
 Key | Type | Description
 --------- | ------- | -----------
-currencyPair | string | 주문을 생성할 마켓 `예) ETH_BTC`
-side | string | 주문 종류 `'buy' or 'sell'`
-limit | int32 | API가 불러올 정보 개수 제한
-offset | int32 | 조회할 주문의 offset
+currencyPair | `string` | 주문을 생성할 마켓 `예) ETH_BTC`
+side | `string` | 주문 종류 `'buy' or 'sell'`
+limit | `int32` | API가 불러올 정보 개수 제한
+offset | `int32` | 조회할 주문의 offset
 
-### Headers
+### 헤더
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | 인증 토큰 `JWT`  
+Authorization | `string` | 인증 토큰 `JWT`  
 
-### Response
+### 응답
 
 Key | Type | Description
 --------- | ------- | -----------
 items | array[item] | 조회된 주문 배열
-offset | string | 현재 조회된 주문의 offset
-limit | string | 요청된 주문의 조회 개수
-total | string | 페이징을 제외한 조건에 맞는 총 주문의 개수
-pageIndex | string | 현재 페이지의 인덱스
+offset | `string` | 현재 조회된 주문의 offset
+limit | `string` | 요청된 주문의 조회 개수
+total | `string` | 페이징을 제외한 조건에 맞는 총 주문의 개수
+pageIndex | `string` | 현재 페이지의 인덱스
 
-### Response (Item)
+### 응답 (Item)
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | 주문의 고유 ID `UUID`
-currencyPair | string | 마켓 종류 예) ETH_BTC
-side | string | 주문 종류 ("BUY" or "SELL")
-type | string | 주문 형태 `"LIMIT"`
-amount | string | 총 주문 수량
-price | string | 주문 가격
-remains | string | 주문 잔량
-fee | string | 총 주문 수수료
-feeRate | string | 주문 적용 수수료율
-status | string | 주문 상태 `CREATED`
-timestamp | string | 주문 생성 시각
+orderId | `string` | 주문의 고유 ID `UUID`
+currencyPair | `string` | 마켓 종류 예) ETH_BTC
+side | `string` | 주문 종류 `"BUY" or "SELL"`
+type | `string` | 주문 형태 `"LIMIT"`
+amount | `string` | 총 주문 수량
+price | `string` | 주문 가격
+remains | `string` | 주문 잔량
+fee | `string` | 총 주문 수수료
+feeRate | `string` | 주문 적용 수수료율
+status | `string` | 주문 상태 `CREATED`
+timestamp | `string` | 주문 생성 시각
 
 ## <code class='get'>GET</code> 체결 주문 조회
 
@@ -554,42 +554,42 @@ request(options, function (error, response, body) {
 
 <code class="get">GET</code>`https://user-api.hanbitco.com/v1/trades`
 
-### Query Parameters
+### Query 파라미터
 
 Key | Type | Description
 --------- | ------- | -----------
-currencyPair | string | 주문을 생성할 마켓 `예) ETH_BTC`
-side | string | 주문 종류 `'buy' or 'sell'`
-limit | int32 | API가 불러올 정보 개수 제한
-offset | int32 | 조회할 주문의 offset
+currencyPair | `string` | 주문을 생성할 마켓 `예) ETH_BTC`
+side | `string` | 주문 종류 `'buy' or 'sell'`
+limit | `int32` | API가 불러올 정보 개수 제한
+offset | `int32` | 조회할 주문의 offset
 
-### Headers
+### 헤더
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | 인증 토큰 `JWT`  
+Authorization | `string` | 인증 토큰 `JWT`  
 
-### Response
+### 응답
 
 Key | Type | Description
 --------- | ------- | -----------
 items | array[item] | 조회된 주문 배열
-offset | string | 현재 조회된 주문의 offset
-limit | string | 요청된 주문의 조회 개수
-total | string | 페이징을 제외한 조건에 맞는 총 주문의 개수
-pageIndex | string | 현재 페이지의 인덱스
+offset | `string` | 현재 조회된 주문의 offset
+limit | `string` | 요청된 주문의 조회 개수
+total | `string` | 페이징을 제외한 조건에 맞는 총 주문의 개수
+pageIndex | `string` | 현재 페이지의 인덱스
 
-### Response (Item)
+### 응답 (Item)
 
 Key | Type | Description
 --------- | ------- | -----------
-tradeId | string | 주문의 고유 ID `UUID`
-currencyPair | string | 마켓 종류 예) ETH_BTC
-side | string | 주문 종류 `"BUY" or "SELL"`
-type | string | 주문 형태 `"LIMIT"`
-amount | string | 체결 수량
-price | string | 체결 가격
-fee | string | 체결 수수료
-taker | string | taker
-timestamp | string | 주문 생성 시각
+tradeId | `string` | 주문의 고유 ID `UUID`
+currencyPair | `string` | 마켓 종류 예) ETH_BTC
+side | `string` | 주문 종류 `"BUY" or "SELL"`
+type | `string` | 주문 형태 `"LIMIT"`
+amount | `string` | 체결 수량
+price | `string` | 체결 가격
+fee | `string` | 체결 수수료
+taker | `string` | taker
+timestamp | `string` | 주문 생성 시각
 

@@ -1,6 +1,6 @@
 
 
-# 공개-API
+# 공개 API
 
 ## <code class='get'>GET</code> 호가 정보 조회
 
@@ -48,7 +48,7 @@ curl --request GET \
 
 <code class="get">GET</code> `https://user-api.hanbitco.com/v1/markets/{currency_pair}/orderbook`
 
-###Path Parameters 
+###Path 파라미터
 
 Parameter | Type | Description
 --------- | ------- | -----------
@@ -97,11 +97,11 @@ curl --request GET \
 
 <code class="get">GET</code> `https://user-api.hanbitco.com/v1/markets/{currency_pair}/trades`
 
-### Path Parameters
+### Path 파라미터
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency_pair | string | 최근 체결 내역을 불러올 마켓값.
+currency_pair | `string` | 최근 체결 내역을 불러올 마켓값.
 
 ## <code class="get">GET</code> 현재가 정보
 
@@ -132,8 +132,8 @@ curl --request GET \
 
 <code class="get">GET</code> `https://user-api.hanbitco.com/v1/markets/{currency_pair}/ticker`
 
-### Path Parameters
+### Path 파라미터
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency_pair | string | 현재가 정보를 불러올 마켓값.
+currency_pair | `string` | 현재가 정보를 불러올 마켓값.

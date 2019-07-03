@@ -42,7 +42,7 @@ curl --request GET \
   }
 ```
  
-Retrieves the orderbook for a market with a requested currency_pair. The list of currency pairs can be found on the [currencyPair] section.
+Retrieves the orderbook for a market with a requested currency_pair.
 
 ### HTTP Request
 
@@ -102,7 +102,7 @@ Retrieves all the recent trade records of a selected currency market.
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency_pair | string | Used to retrieve the trade records with the respective currency pair.
+currency_pair | `string` | Used to retrieve the trade records with the respective currency pair.
 
 ## <code class="get">GET</code> Current Prices Ticker
 
@@ -136,4 +136,4 @@ Retrieves a selected currency pair ticker that contains information such as last
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency_pair | string | Used to retrieve the ticker with the respective currency pair.
+currency_pair | `string` | Used to retrieve the ticker with the respective currency pair.

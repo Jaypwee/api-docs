@@ -67,15 +67,15 @@ Retrieves the balances and tradable balances of all the currencies in the accoun
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | Authorization Token `JWT`
+Authorization | `string` | Authorization Token `JWT`
 
 ### Response
 
 Key | Type | Description
 --------- | ------- | -----------
-currency | string | Currency Code
-balance | string | Total Balance of a currency
-tradable | string | Amount of currency available for trading.
+currency | `string` | Currency Code
+balance | `string` | Total Balance of a currency
+tradable | `string` | Amount of currency available for trading.
 
 
 ## <code class="get">GET</code> Get Currency Balance
@@ -137,21 +137,21 @@ Retrieves the balances and tradable balances of a specific currency in the accou
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency | string | currency (e.g BTC) Check all the currency codes [here]
+currency | `string` | currency (e.g BTC) 
 
 ### Headers
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | Authorization Token `JWT` 
+Authorization | `string` | Authorization Token `JWT` 
 
 ### Response
 
 Key | Type | Description
 --------- | ------- | -----------
-currency | string | Currency Code
-balance | string | Total Balance of a currency
-tradable | string | Amount of currency available for trading.
+currency | `string` | Currency Code
+balance | `string` | Total Balance of a currency
+tradable | `string` | Amount of currency available for trading.
 
 ## <code class="post">POST</code> Create Order
 
