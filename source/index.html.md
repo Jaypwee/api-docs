@@ -9,7 +9,6 @@ includes_en:
   - public_api_en
   - private_api_en
   - currency_pairs_en
-  - errors
 
 includes_ko:
   - introduction_ko
