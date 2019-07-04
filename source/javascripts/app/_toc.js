@@ -123,7 +123,7 @@
       // reload immediately after scrolling on toc click
       $toc.find(tocLinkSelector).click(function() {
         if (locale === 'ko'){
-          $(window).scrollTop(headerHeights_ko[`#${$(this)[0].dataset.title}`] - 50)
+          $(window).scrollTop(headerHeights_ko['#'+$(this)[0].dataset.title] - 50)
         }
         setTimeout(function() {
           refreshToc();

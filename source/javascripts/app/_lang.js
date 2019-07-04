@@ -168,7 +168,7 @@ under the License.
 
 
   // if a button is clicked, add the state to the history
-  function pushURL(locale, language = undefined, ) {
+  function pushURL(locale, language) {
     if (!history) { return; }
     if (!locale) {
       locale = getLocaleFromQueryString()
