@@ -131,7 +131,7 @@ Retrieves the balances and tradable balances of a specific currency in the accou
 
 ### HTTP Request
 
-<code class="get">GET</code>`https://user-api.hanbitco.com/v1/balances?currency=currency`
+<code class="get">GET</code>`https://user-api.hanbitco.com/v1/balances?currency={currency}`
 
 ### Path Parameters
 
@@ -227,33 +227,33 @@ Creates an order for a specific market.
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | A Unique Id (UUID) for the order
-currencyPair | string | The market of the respective currency pair to order from `e.g 'eth_btc'`
-side | string | Order type `'buy' or 'sell'`
-price | string | Price of currency per amount
-amount | string | Amount of currency to buy or sell
+orderId | `string` | A Unique Id (UUID) for the order
+currencyPair | `string` | The market of the respective currency pair to order from `e.g 'eth_btc'`
+side | `string` | Order type `'buy' or 'sell'`
+price | `string` | Price of currency per amount
+amount | `string` | Amount of currency to buy or sell
 
 ### Headers
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | Authorization Token `JWT` 
+Authorization | `string` | Authorization Token `JWT` 
 
 ### Response
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | A Unique Id (UUID) for the order
-currencyPair | string | Currency pair of the market
-side | string | Order Type `"BUY" or "SELL"`
-type | string | Matching type ("LIMIT")
-amount | string | Total order amount
-price | string | Order price
-remains | string | Remaining amount
-fee | string | Total transaction fee
-feeRate | string | Fee rates
-status | string | Order status
-timestamp | string | Time of order created
+orderId | `string` | A Unique Id (UUID) for the order
+currencyPair | `string` | Currency pair of the market
+side | `string` | Order Type `"BUY" or "SELL"`
+type | `string` | Matching type `"LIMIT"`
+amount | `string` | Total order amount
+price | `string` | Order price
+remains | `string` | Remaining amount
+fee | `string` | Total transaction fee
+feeRate | `string` | Fee rates
+status | `string` | Order status
+timestamp | `string` | Time of order created
 
 ## <code class="delete">DELETE</code> Cancel Order
 
@@ -325,29 +325,29 @@ Deletes an order for a specific market.
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | A Unique Id (UUID) for the order
+orderId | `string` | A Unique Id (UUID) for the order
 
 ### Headers
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | Authorization Token `JWT` 
+Authorization | `string` | Authorization Token `JWT` 
 
 ### Response
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | A Unique Id (UUID) for the order
-currencyPair | string | Currency pair of the market
-side | string | Order Type `"BUY" or "SELL"`
-type | string | Matching type ("LIMIT")
-amount | string | Total order amount
-price | string | Order price
-remains | string | Remaining amount
-fee | string | Total transaction fee
-feeRate | string | Fee rates
-status | string | Order status
-timestamp | string | Time of order created
+orderId | `string` | A Unique Id (UUID) for the order
+currencyPair | `string` | Currency pair of the market
+side | `string` | Order Type `"BUY" or "SELL"`
+type | `string` | Matching type `"LIMIT"`
+amount | `string` | Total order amount
+price | `string` | Order price
+remains | `string` | Remaining amount
+fee | `string` | Total transaction fee
+feeRate | `string` | Fee rates
+status | `string` | Order status
+timestamp | `string` | Time of order created
 
 ## <code class='get'>GET</code> Get Orders
 
@@ -437,42 +437,42 @@ If the limit is 10 and the offset is 0, the API will return the recent 10 orders
 
 Key | Type | Description
 --------- | ------- | -----------
-currencyPair | string | The market of the respective currency pair to order from `e.g 'eth_btc'`
-side | string | Order type `'buy' or 'sell'`
-limit | string | Limit the amount of items to retrieve
-offset | string | Offset the amount of orders to retrieve based on the limit.
+currencyPair | `string` | The market of the respective currency pair to order from `e.g 'eth_btc'`
+side | `string` | Order type `'buy' or 'sell'`
+limit | `int32` | Limit the amount of items to retrieve
+offset | `int32` | Offset the amount of orders to retrieve based on the limit.
 
 ### Headers
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | Authorization Token `JWT` 
+Authorization | `string` | Authorization Token `JWT` 
 
 ### Response
 
 Key | Type | Description
 --------- | ------- | -----------
-items | array[item] | Array of all the orders retrieved
-offset | string | Offset of the orders
-limit | string | Amount of orders to retrieve
-total | string | Total number of orders that exist (disregarding limit and offset)
-pageIndex | string | Current page index
+items | `array[item]` | Array of all the orders retrieved
+offset | `string` | Offset of the orders
+limit | `string` | Amount of orders to retrieve
+total | `string` | Total number of orders that exist (disregarding limit and offset)
+pageIndex | `string` | Current page index
 
 ### Response (Item)
 
 Key | Type | Description
 --------- | ------- | -----------
-orderId | string | A Unique Id (UUID) for the order
-currencyPair | string | Currency pair of the market
-side | string | Order Type `"BUY" or "SELL"`
-type | string | Matching type ("LIMIT")
-amount | string | Total order amount
-price | string | Order price
-remains | string | Remaining amount
-fee | string | Total transaction fee
-feeRate | string | Fee rates
-status | string | Order status
-timestamp | string | Time of order created
+orderId | `string` | A Unique Id (UUID) for the order
+currencyPair | `string` | Currency pair of the market
+side | `string` | Order Type `"BUY" or "SELL"`
+type | `string` | Matching type `"LIMIT"`
+amount | `string` | Total order amount
+price | `string` | Order price
+remains | `string` | Remaining amount
+fee | `string` | Total transaction fee
+feeRate | `string` | Fee rates
+status | `string` | Order status
+timestamp | `string` | Time of order created
 
 ## <code class='get'>GET</code> Get Matched Orders
 
@@ -544,10 +544,10 @@ request(options, function (error, response, body) {
 
 ```
 
-해당 마켓에 체결된 모든 주문을 LIMIT 값과 OFFSET값에 기반해 거래 정보를 불러온다.
+Retrieves all the orders of a specific currency pair market based on the requested limit and offset. 
 
 <aside class="notice">
-만약 limit 값이 10이고 offset 값이 0이면 해당 API는 최근 10개의 주문을 불러온다. 만약 limit 값이 20이고 offset 값이 1이면, 최근 21번째에서 40번째 주문까지 존재하는 주문 정보를 불러온다.
+If the limit is 10 and the offset is 0, the API will return the recent 10 orders. If the limit is 20 and the offset is 1, it will return the 21th order to the 40th recent order (if it exists)
 </aside>
 
 ### HTTP Request
@@ -558,36 +558,38 @@ request(options, function (error, response, body) {
 
 Key | Type | Description
 --------- | ------- | -----------
-currencyPair | string | The market of the respective currency pair to order from `e.g 'eth_btc'`
-side | string | Order type `'buy' or 'sell'`
-limit | string | Limit the amount of items to retrieve
-offset | string | Offset the amount of orders to retrieve based on the limit.
+currencyPair | `string` | The market of the respective currency pair to order from `e.g 'eth_btc'`
+side | `string` | Order type `'buy' or 'sell'`
+limit | `int32` | Limit the amount of items to retrieve
+offset | `int32` | Offset the amount of orders to retrieve based on the limit.
 
 ### Headers
 
 Parameter | Type | Description
 --------- | ------- | -----------
-Authorization | string | Authorization Token `JWT`  
+Authorization | `string` | Authorization Token `JWT`  
 
 ### Response
 
-items | array[item] | Array of all the orders retrieved
-offset | string | Offset of the orders
-limit | string | Amount of orders to retrieve
-total | string | Total number of orders that exist (disregarding limit and offset)
-pageIndex | string | Current page index
+Key | Type | Description
+--------- | ------- | -----------
+items | `array[item]` | Array of all the orders retrieved
+offset | `string` | Offset of the orders
+limit | `string` | Amount of orders to retrieve
+total | `string` | Total number of orders that exist (disregarding limit and offset)
+pageIndex | `string` | Current page index
 
 ### Response (Item)
 
 Key | Type | Description
 --------- | ------- | -----------
-tradeId | string | A unique tradeId `UUID`
-currencyPair | string | Currency pair of the market
-side | string | Order type `"BUY" or "SELL"`
-type | string | Matching type `"LIMIT"`
-amount | string | Matched amount
-price | string | Matched price
-fee | string | Matched fee
-taker | string | taker
-timestamp | string | time of order created
+tradeId | `string` | A unique tradeId `UUID`
+currencyPair | `string` | Currency pair of the market
+side | `string` | Order type `"BUY" or "SELL"`
+type | `string` | Matching type `"LIMIT"`
+amount | `string` | Matched amount
+price | `string` | Matched price
+fee | `string` | Matched fee
+taker | `string` | taker
+timestamp | `string` | time of order created
 

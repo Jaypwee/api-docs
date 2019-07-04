@@ -129,7 +129,7 @@ request(options, function (error, response, body) {
 
 ### HTTP Request
 
-<code class="get">GET</code>`https://user-api.hanbitco.com/v1/balances?currency=currency`
+<code class="get">GET</code>`https://user-api.hanbitco.com/v1/balances?currency={currency}`
 
 ### Path 파라미터
 
@@ -450,7 +450,7 @@ Authorization | `string` | 인증 토큰 `JWT`
 
 Key | Type | Description
 --------- | ------- | -----------
-items | array[item] | 조회된 주문 배열
+items | `array[item]` | 조회된 주문 배열
 offset | `string` | 현재 조회된 주문의 offset
 limit | `string` | 요청된 주문의 조회 개수
 total | `string` | 페이징을 제외한 조건에 맞는 총 주문의 개수
@@ -573,7 +573,7 @@ Authorization | `string` | 인증 토큰 `JWT`
 
 Key | Type | Description
 --------- | ------- | -----------
-items | array[item] | 조회된 주문 배열
+items | `array[item]` | 조회된 주문 배열
 offset | `string` | 현재 조회된 주문의 offset
 limit | `string` | 요청된 주문의 조회 개수
 total | `string` | 페이징을 제외한 조건에 맞는 총 주문의 개수
