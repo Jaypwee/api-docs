@@ -23,9 +23,9 @@ vagrant up
 # To build static files for hosting,
 bundle exec middleman build --clean
 ```
+Default port: 4567
 
-You can now see the docs at http://localhost:4567. Whoa! That was fast!
+Check slate's [wiki](https://github.com/lord/slate/wiki) for additional guidelines.
 
-Now that Slate is all set up on your machine, you'll probably want to learn more about [editing Slate markdown](https://github.com/lord/slate/wiki/Markdown-Syntax), or [how to publish your docs](https://github.com/lord/slate/wiki/Deploying-Slate).
-
-If you'd prefer to use Docker, instructions are available [in the wiki](https://github.com/lord/slate/wiki/Docker).
+Localization for this api-docs did not use the default localization provided by middleman. Currently implemented as an SPA-like behavior with customized javascript. 
+If additional languages need to be supported, rollback to [this](https://github.com/lord/slate/wiki/Internationalization)

@@ -52,7 +52,7 @@ curl --request GET \
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency_pair | `string` | 오더북을 불러올 마켓값.
+currency_pair | `string` | 오더북을 불러올 마켓값 `소문자 심볼 예) eth_btc`.
 
 ## <code class='get'>GET</code> 최근 체결 내역
 
@@ -101,7 +101,7 @@ curl --request GET \
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency_pair | `string` | 최근 체결 내역을 불러올 마켓값.
+currency_pair | `string` | 최근 체결 내역을 불러올 마켓값 `소문자 심볼 예) eth_btc`.
 
 ## <code class="get">GET</code> 현재가 정보
 
@@ -136,4 +136,4 @@ curl --request GET \
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency_pair | `string` | 현재가 정보를 불러올 마켓값.
+currency_pair | `string` | 현재가 정보를 불러올 마켓값 `소문자 심볼 예) eth_btc`.

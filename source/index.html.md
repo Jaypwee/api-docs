@@ -8,18 +8,21 @@ includes_en:
   - introduction_en
   - public_api_en
   - private_api_en
-  - currency_pairs_en
 
 includes_ko:
   - introduction_ko
   - public_api_ko
   - private_api_ko
-  - currency_pairs_ko
 
 locales:
   - ko
   - en
 
 search: true
+
+toc_footers:
+ - <a href='https://hanbitco.com/'>Here's a quick link back to our exchange</a>
+ - -----
+ - <a href='https://hanbitco.com/api'>Register for an API key</a>
 ---
 

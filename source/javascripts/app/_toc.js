@@ -46,9 +46,6 @@
           if ($(targetId).offset() !== undefined){
             headerHeights_en[targetId] = $(targetId).offset().top;//All EN locale headers will go in here. All the other korean locales will go into the other else statements.
           } else if ($("h1:contains('" + targetId.slice(1) + "')").offset()){
-            // if (!diff){
-            //   diff = $("h1:contains('" + targetId.slice(1) + "')").offset().top - 50;
-            // }
             headerHeights_ko[targetId] = $("h1:contains('" + targetId.slice(1) + "')").offset().top;
           } else {
             headerHeights_ko[targetId] = $("h2:contains('" + targetId.slice(1) + "')").offset().top;
@@ -100,11 +97,11 @@
           window.history.replaceState(null, "", best);
         }
         var thisTitle = $best.data("title")
-        if (thisTitle !== undefined && thisTitle.length > 0) {
-          document.title = thisTitle + " – " + originalTitle;
-        } else {
-          document.title = originalTitle;
-        }
+        // if (thisTitle !== undefined && thisTitle.length > 0) {
+        //   document.title = thisTitle + " – " + originalTitle;
+        // } else {
+        //   document.title = originalTitle;
+        // }
       }
     };
 

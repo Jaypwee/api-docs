@@ -6,7 +6,7 @@
 
 ```json
   {
-    access_key: "발급 받은 access key (필수)",
+    clientId: "발급 받은 Client Id (필수)",
     nonce: "현재 시간, epoch milliseconds (필수)",
     query: "파라미터의 querystring(파라미터가 있을 경우 필수)"
   }

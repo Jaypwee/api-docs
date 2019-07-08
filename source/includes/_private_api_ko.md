@@ -73,7 +73,7 @@ Authorization | `string` | 인증 토큰 `JWT`
 
 Key | Type | Description
 --------- | ------- | -----------
-currency | `string` | 암호화폐 값
+currency | `string` | 암호화폐 값 `BTC`
 balance | `string` | 해당 암호화폐의 전체 잔고
 tradable | `string` | 해당 암호화폐의 거래 가능 잔고
 
@@ -135,7 +135,7 @@ request(options, function (error, response, body) {
 
 Parameter | Type | Description
 --------- | ------- | -----------
-currency | `string` | 암호화폐 값 (e.g BTC) 
+currency | `string` | 암호화폐 값 `BTC` 
 
 ### 헤더
 
@@ -226,7 +226,7 @@ request(options, function (error, response, body) {
 Key | Type | Description
 --------- | ------- | -----------
 orderId | `string` | 주문의 고유 ID `UUID`
-currencyPair | `string` | 주문을 생성할 마켓 `예) ETH_BTC`
+currencyPair | `string` | 주문을 생성한 마켓 `예) ETH_BTC`
 side | `string` | 주문 종류 `'buy' or 'sell'`
 price | `string` | Price of currency per amount
 amount | `string` | Amount of currency to buy or sell
@@ -435,7 +435,7 @@ request(options, function (error, response, body) {
 
 Key | Type | Description
 --------- | ------- | -----------
-currencyPair | `string` | 주문을 생성할 마켓 `예) ETH_BTC`
+currencyPair | `string` | 주문을 생성한 마켓 `예) ETH_BTC`
 side | `string` | 주문 종류 `'buy' or 'sell'`
 limit | `int32` | API가 불러올 정보 개수 제한
 offset | `int32` | 조회할 주문의 offset
@@ -558,7 +558,7 @@ request(options, function (error, response, body) {
 
 Key | Type | Description
 --------- | ------- | -----------
-currencyPair | `string` | 주문을 생성할 마켓 `예) ETH_BTC`
+currencyPair | `string` | 주문을 생성한 마켓 `예) ETH_BTC`
 side | `string` | 주문 종류 `'buy' or 'sell'`
 limit | `int32` | API가 불러올 정보 개수 제한
 offset | `int32` | 조회할 주문의 offset
@@ -590,6 +590,6 @@ type | `string` | 주문 형태 `"LIMIT"`
 amount | `string` | 체결 수량
 price | `string` | 체결 가격
 fee | `string` | 체결 수수료
-taker | `string` | taker
+taker | `string` | taker `"BUY" or "SELL"`
 timestamp | `string` | 주문 생성 시각
 

@@ -40,6 +40,7 @@ html, body {
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
 
+//Custom hanbitco header
 .header {
   position: fixed;
   width: 100%;
@@ -62,19 +63,21 @@ html, body {
     }
   }
 
-  .header_links {
-    width: 78%;
-  }
-
+  // .header_links {
+  //   width: 78%;
+  // }
+// Locale button on the top-right
   .header_locale {
-    width: 150px;
-
+    // width: 150px;
+    display: flex;
+    justify-content: flex-end;
+    width: calc(100% - 230px);
     .switch {
       position: relative;
       display: flex;
       align-items: center;
-      margin: 100px auto;
-      width: 80px;
+      margin: 50px;
+      width: 85px;
       height: 25px;
       border: 2px solid $header-button-border;
       color: $header-button-text;
@@ -105,6 +108,7 @@ html, body {
         height: 100%;
         cursor: pointer;
         text-align: center;
+        user-select: none;
         transition: transform 0.4s, color 0.4s, background-color 0.4s;
       }
       input[type="radio"]{
@@ -726,8 +730,17 @@ html, body {
     margin-left: 0;
   }
 
+  .header_img{
+    margin-left: 0.8em;
+  }
+
+  .header_locale {
+    margin-right: 0.8em;
+  }
+
   #nav-button {
     display: block;
+    margin-top: 50px;
   }
 
   .toc-link {
@@ -793,10 +806,4 @@ html, body {
 
 .highlight .mi, .highlight .mf {
   color: #BD93F9
-}
-
-code .prefix { //Used for h2 header prefixes (GET, POST, DELETE)
-  background-color: #FF79C6;
-  opacity: 0.7;
-  color: #fff;
 }

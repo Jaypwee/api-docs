@@ -6,9 +6,9 @@
 
 ```json
   {
-    "access_key": "Issued access key (required)",
-    "nonce": "Current time, epoch milliseconds (required)",
-    "query": "Parameter's querystring (required if parameters are available)"
+    clientId: "Issued Client ID (required)",
+    nonce: "Current time, epoch milliseconds (required)",
+    query: "Parameter's querystring (required if parameters are available)"
   }
 ```
 
